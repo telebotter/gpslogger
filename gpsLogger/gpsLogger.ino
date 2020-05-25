@@ -25,10 +25,6 @@ const int GPSBaud = 9600;
 //SD
 const int chipSelect = 10;
 
-//Buzzer
-const int buzzer = 9;
-
-
 bool locationOK = false; //Is GPS connected ?
 bool sdOK = true; //Is SD card detected ?
 
@@ -54,8 +50,6 @@ void setup() {
   // Start Serial debug
   Serial.begin(9600);
 
-  buzz(800, 200);
-
   // Start GPS Serial
   gpsSerial.begin(GPSBaud);
 
@@ -71,14 +65,18 @@ void setup() {
 
 void loop() {
   // When GPS send coordinates
-Serial.println(gpsSerial.available());
   while (gpsSerial.available() > 0)
     if (gps.encode(gpsSerial.read())){
-      formatData(); //Format data
-      displayInfo(); //Display debug
-      saveToSD(); //Save in SDCard
-      //We make the arduino wait
-      delay(gps_interval);
+      if (gps.location.isUpdated()){
+        formatData(); //Format data
+        //displayInfo(); //Display debug
+        saveToSD(); //Save in SDCard
+        //We make the arduino wait
+        delay(gps_interval);
+      }
+      else{
+        delay(1000);
+      }
     }
 
   // Check if GPS is OK
@@ -86,19 +84,9 @@ Serial.println(gpsSerial.available());
   // If 5000 milliseconds pass and there are no characters coming in
   // over the software serial port.
     Serial.println(F("GPS : ERROR"));
-    buzz(700, 2000); //GPS error panic
   }
 
 }
-
-//Make sound using a buzzer/speaker
-void buzz(int freq, int waitTime) {
-  tone(buzzer, freq);
-  delay(waitTime);
-  noTone(buzzer);
-  delay(waitTime);
-}
-
 
 //SD : Write Header for CSV file
 void writeHeaders() {
@@ -112,7 +100,6 @@ void writeHeaders() {
   }
   gpsFile.close();
 }
-
 
 //Format data
 void formatData(){
@@ -197,9 +184,6 @@ void saveToSD() {
     if (! locationOK) {
       if (gps.location.lat() != 0)
       {
-        //Buzz
-        buzz(600, 1000);
-
         //Create filename
         string_filename =s_day + s_hour + s_minute + s_second + ".csv";
 
@@ -221,9 +205,6 @@ void saveToSD() {
         writeHeaders();
 
       }
-    } else {
-      //Buzz until GPS is OK
-      buzz(5, 5);
     }
 
     //Append position to file each 15 minutes (by default)
@@ -232,7 +213,6 @@ void saveToSD() {
       if (gps.date.year() != 2000) {
 
         //Buzz to tell the user data is written
-        buzz(200, 100);
         Serial.println("APPEND");
 
         //Open file
@@ -268,16 +248,12 @@ void saveToSD() {
           gpsFile.print(F(","));
           gpsFile.print(gps.speed.kmph());
           gpsFile.println();
-
+          
         } else {
           Serial.println("SD : ERROR WRITING");
         }
         gpsFile.close(); //Close file
       }
-    } else {
-      buzz(5, 5); //Searching satellite
-    }
-  } else {
-    buzz(600, 1000); // No SD card panic
+    } 
   }
 }
