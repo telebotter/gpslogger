@@ -1,3 +1,10 @@
+- Zum anschließen: Arduino Pro or Pro Mini wählen!
+- AtMega 328p 3.3V 8Mhz wählen
+- comport wählen
+- baudrate auf 9600
+
+
+
 GPS Logger
 ----------
 
