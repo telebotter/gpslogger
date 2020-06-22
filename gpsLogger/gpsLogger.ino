@@ -5,16 +5,9 @@
 #include <SD.h>
 
 //milli Seconds between save
-const int gps_interval = 5 * 1000;
+const int gps_interval = 30 * 1000;
 
-const int timezone = 2;
-//France +1
-//England +0
-//Deutschland Sommer +2
-//Deutschland Winter +1
-//UTC Time +0
-
-/* GPS */
+// Alles immer in UTC Time
 //GPS TX/RX (don't use default TX/RX)
 const int RXPin = 2;
 const int TXPin = 3;
@@ -122,14 +115,12 @@ void formatData(){
   }
 
   // Hour
+  // UTC
 
-  // UTC Adjustement
-  int adj_hour = gps.time.hour() + timezone;
-
-  if (adj_hour < 10) {
-    s_hour = "0" + String(adj_hour);
+  if (gps.time.hour() < 10) {
+    s_hour = "0" + String(gps.time.hour());
   } else {
-    s_hour = String(adj_hour);
+    s_hour = String(gps.time.hour());
   }
 
   // Minutes
@@ -189,8 +180,6 @@ void saveToSD() {
 
         //Convert filename string to char
         unsigned int bufSize = string_filename.length() + 1; //String length + null terminator
-        Serial.println("bla");
-        Serial.println(bufSize);
         filename = new char[bufSize];
         string_filename.toCharArray(filename, bufSize);
 

@@ -1,3 +1,10 @@
+Zum anschließen: Arduino Pro or Pro Mini wählen!
+AtMega 328p 3.3V 8Mhz wählen
+comport wählen
+baudrate auf 9600
+
+
+
 GPS Logger
 ----------
 
@@ -54,7 +61,7 @@ We are using a micro sd card adapter as a micro sdcard reader but you can also u
 # Tools
 * FTDI basic breakout usb ttl 3.3 : 6.23€
 * Cable 30awg  8-color: 5.37€
- 
+
 # Software needed:
   * Arduino (Programmation): http://arduino.madnerd.org
   * Cura (3D printing): https://ultimaker.com/en/products/cura-software
