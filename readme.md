@@ -1,3 +1,6 @@
+
+GPS Logger
+----------
 Zum anschließen: Arduino Pro or Pro Mini wählen!
 AtMega 328p 3.3V 8Mhz wählen
 comport wählen
@@ -5,8 +8,7 @@ baudrate auf 9600
 
 
 
-GPS Logger
-----------
+
 
 ![Wiring GPS](https://github.com/pigetArduino/gpsLogger/raw/master/doc/gpslogger.jpg)
 
