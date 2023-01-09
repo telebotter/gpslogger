@@ -17,9 +17,6 @@ GPS Logger
 Record gps coordinate in a csv file on an Micro card every 15 seconds (DAYHOURMINUTESSECOND.csv)   
 [Example file](https://github.com/telebotter/gpslogger/blob/master/doc/example.csv)
 
-# Download link
-http://gps.madnerd.org
-
 # Videos / Instructables
 * How to build it : https://www.youtube.com/watch?v=gYxDJqSLVxQ
 * How to use it : https://www.youtube.com/watch?v=96iCh5vVnsw
