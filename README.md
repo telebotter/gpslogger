@@ -93,13 +93,9 @@ TX --> 3
 + ---> 9
 ```
 
-# Batttery pack placement
-As stated by bwh13 on instructables : 
-You should avoid obstructing the antenna with the battery pack
-```
-Nice project.
-Moving forward, consider placing your battery pack beneath your GPS module. The antenna works best with an unobstructed view of the sky
-```
+# Batttery pack
+You should avoid obstructing the antenna with the battery pack, antenna needs to see the sky(or sattelites)
+we are using 4x 1,5V AA Batteries, so 6V inputvoltage powersupply for the system
 
 ## Libraries
 TinyGPS++ library : https://github.com/mikalhart/TinyGPSPlus
