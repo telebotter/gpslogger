@@ -103,3 +103,15 @@ Moving forward, consider placing your battery pack beneath your GPS module. The 
 
 ## Libraries
 TinyGPS++ library : https://github.com/mikalhart/TinyGPSPlus
+
+## Flashinstructions
+```
+GND auf GND
+VCC auf VCC
+RX auf TX
+TX auf RX
+DTR auf DTR
+CTS bleibt offen
+```
+mit geschickt hinlegen kann man ohne anzulöten flashen
+Prozessor auf ATMega328P (3,3V,8MHz) stellen und richtigen COMport wählen, dann kompilieren u hochladen
