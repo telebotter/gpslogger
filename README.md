@@ -11,12 +11,11 @@
 GPS Logger
 ----------
 
-![Wiring GPS](https://github.com/pigetArduino/gpsLogger/raw/master/doc/gpslogger.jpg)
+![Wiring GPS](https://github.com/telebotter/gpslogger/raw/master/doc/gpslogger.jpg)
 
-[Version française / French version](https://github.com/pigetArduino/gpsLogger/blob/master/readme.fr.md)
 
 Record gps coordinate in a csv file on an Micro card every 15 seconds (DAYHOURMINUTESSECOND.csv)   
-[Example file](https://github.com/pigetArduino/gpsLogger/blob/master/doc/example.csv)
+[Example file](https://github.com/telebotter/gpslogger/blob/master/doc/example.csv)
 
 # Download link
 http://gps.madnerd.org
@@ -43,12 +42,6 @@ http://gps.madnerd.org
 * Add a map in layer
 * Use Open Street Map (Mapnick) or Bing Aerial
 
-# Buzzer
-The buzzer will tell you if there is any issues with the gps/ micro sdcard
-* Heavy sound : Wiring issues or no microsd 
-* Soft repetitive sound : GPS is calibrating (can take up to 5 minutes)
-* Melody : GPS is online
-* Soft and short sound : GPS coordinates saved to sd  
 
 # Components
 Use theses keyword to find the components
@@ -65,7 +58,7 @@ We are using a micro sd card adapter as a micro sdcard reader but you can also u
 * FTDI basic breakout usb ttl 3.3 : 6.23€
 * Cable 30awg  8-color: 5.37€
  
-# Software needed:
+# Software:
   * Arduino (Programmation): http://arduino.madnerd.org
   * Cura (3D printing): https://ultimaker.com/en/products/cura-software
 
