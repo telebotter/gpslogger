@@ -1,4 +1,7 @@
-- Zum anschließen: Arduino Pro or Pro Mini wählen!
+> Dieses Projekt basiert auf der Anleitung auf pigetArduino: https://github.com/pigetArduino/gpsLogger
+
+
+- Zum anschließen: Arduino Pro oder Pro Mini wählen!
 - AtMega 328p 3.3V 8Mhz wählen
 - comport wählen
 - baudrate auf 9600
