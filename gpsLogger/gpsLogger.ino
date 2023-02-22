@@ -3,6 +3,8 @@
 // SD
 #include <SPI.h>
 #include <SD.h>
+//math, cos atan2 etc
+#include <math.h>
 
 //milli Seconds between save
 const int gps_interval = 30 * 1000;
@@ -31,6 +33,13 @@ String s_year;
 String s_hour;
 String s_minute;
 String s_second;
+
+double latitude_old=0;
+double longitude_old=0;
+double latitude=0;
+double longitude=0;
+double angle = 0;
+double angle_old = 0;
 
 // Create a TinyGPS++ object called "gps"
 TinyGPSPlus gps;
@@ -63,7 +72,16 @@ void loop() {
       if (gps.location.isUpdated()){
         formatData(); //Format data
         //displayInfo(); //Display debug
-        saveToSD(); //Save in SDCard
+        angle_old = angle;
+        latitude_old = latitude;
+        longitude_old = longitude;
+        
+        saveToSD(); //Save in SDCard - write longitude and latitude
+        
+        angle = (3*direction(latitude_old, longitude_old,latitude,longitude)+ angle_old)/4; //weighted running mean
+        // if button was pressed, dest_direction = angle - direction(latitude,longitude,latitude_dest,longitude_dest)
+        // welche LED soll leuchten? led_to_light = dest_direction +(360/num_led/2)+180)//(360/num_led))%num_led
+        
         //We make the arduino wait
         delay(gps_interval);
       }
@@ -80,7 +98,13 @@ void loop() {
   }
 
 }
-
+//gives absolute angle (nosw) between two points
+double direction(double latitude_0,double longitude_0,double latitude_1, double longitude_1) {
+  double dy = latitude_1 - latitude_0;
+  double dx = cos(3.14159265358979/180 *latitude_0)*(longitude_1 - longitude_0);
+  double angle = atan2(dy, dx)/ (2*3.14159265358979)*360;
+  return angle;
+}
 //SD : Write Header for CSV file
 void writeHeaders() {
   Serial.println("Writing header");
@@ -185,7 +209,7 @@ void saveToSD() {
 
         //GPS found
         locationOK = true;
-
+        
         //Display filename
         Serial.println("FILENAME");
         Serial.println(filename);
@@ -208,7 +232,9 @@ void saveToSD() {
         File gpsFile = SD.open(filename, FILE_WRITE);
 
         if (gpsFile) {
-          //Latitude / Longitude
+          //Latitude / Longitude       
+          double latitude = gps.location.lat();
+          double longitude = gps.location.lng();
           gpsFile.print(gps.location.lat(), 6);
           gpsFile.print(F(","));
           gpsFile.print(gps.location.lng(), 6);
